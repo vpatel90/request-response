@@ -52,10 +52,10 @@ loop do
     puts "\t'GET http://localhost:3000/students HTTP/1.1'"
     puts "Read more at : http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html"
   else
-    REQUEST = parse(raw_request)
-    PARAMS  = REQUEST[:params]
-    # Use the REQUEST and PARAMS constants to full the request and
-    # return an appropriate reponse
+    @request = parse(raw_request)
+    @params  = @request[:params]
+    # Use the @request and @params ivars to full the request and
+    # return an appropriate response
 
     # YOUR CODE GOES BELOW HERE
 
