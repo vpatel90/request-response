@@ -54,10 +54,10 @@ namespace :generate do
 
       File.open file, "w" do |f|
         f.puts %{
-  class #{name.modularize} < ActiveRecord::Migration
-    def change
-    end
-  end}.strip
+class #{name.modularize} < ActiveRecord::Migration
+  def change
+  end
+end}.strip
       end
 
       puts "Generated #{file}"
