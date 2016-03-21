@@ -60,8 +60,7 @@ loop do
     # return an appropriate response
 
     # YOUR CODE GOES BELOW HERE
-    puts @request
-    puts @params
+    ParamAnalyzer.new(@params).analyze_resource
     # YOUR CODE GOES ABOVE HERE  ^
   end
 end
