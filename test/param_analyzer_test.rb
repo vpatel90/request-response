@@ -15,7 +15,7 @@ class TestParamAnalyzer < Minitest::Test
   end
 
   def test_get_user_at_id
-    params = {:resource=>"users", :id=>1, :action=>nil}
+    params = {:resource=>"users", :id=>2, :action=>nil}
     param_analyzer = ParamAnalyzer.new(params)
     param_analyzer.users = TestUsers::USERS
     expected = ["Response Code 200 OK\n\n", "First Name: Abby Last Name: Hunter Age: 26 \n"]
@@ -37,6 +37,21 @@ class TestParamAnalyzer < Minitest::Test
     expected = ["Response Code 200 OK\n\n", "First Name: Sally Last Name: Sitwell Age: 46 \n"]
 
     assert_equal(expected, param_analyzer.get_users_with_first_name)
+  end
+
+  def test_get_users_at_range_404
+    params = {:resource=>"users", :id=>9999, :action=>nil, :limit=>"15", :offset=>"6"}
+    param_analyzer = ParamAnalyzer.new(params)
+    param_analyzer.users = TestUsers::USERS
+    assert_equal("404 User not found \n\n", param_analyzer.get_users_at_range)
+  end
+
+  def test_get_users_at_range_get_first
+    params = {:resource=>"users", :id=>9999, :action=>nil, :limit=>"1", :offset=>"1"}
+    param_analyzer = ParamAnalyzer.new(params)
+    param_analyzer.users = TestUsers::USERS
+    expected = ["Response Code 200 OK\n\n", "First Name: Vivek Last Name: Patel Age: 26 \n"]
+    assert_equal(expected, param_analyzer.get_users_at_range)
   end
 
 end

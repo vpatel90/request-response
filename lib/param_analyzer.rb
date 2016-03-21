@@ -41,7 +41,7 @@ class ParamAnalyzer
 
   def get_user_at_id
     user_names = ["Response Code 200 OK\n\n"]
-    user = @users[@params[:id].to_i]
+    user = @users[@params[:id].to_i - 1]
     user_names << "First Name: #{user[:first_name]} Last Name: #{user[:last_name]} Age: #{user[:age]} \n"
     return user_names
   end
@@ -64,5 +64,20 @@ class ParamAnalyzer
       end
     end
     return user_names
+  end
+
+  def get_users_at_range
+    start_index = @params[:limit].to_i - 1
+    total_length = start_index + @params[:offset].to_i
+    if total_length > @users.size - 1
+      "404 User not found \n\n"
+    else
+      user_names = ["Response Code 200 OK\n\n"]
+      (start_index...total_length).each do |index|
+        user = @users[index]
+        user_names << "First Name: #{user[:first_name]} Last Name: #{user[:last_name]} Age: #{user[:age]} \n"
+      end
+      return user_names
+    end
   end
 end
