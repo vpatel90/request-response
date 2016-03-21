@@ -60,7 +60,7 @@ loop do
     # return an appropriate response
 
     # YOUR CODE GOES BELOW HERE
-    ParamAnalyzer.new(@params).analyze_resource
+    puts ParamAnalyzer.new(@params).analyze_resource
     # YOUR CODE GOES ABOVE HERE  ^
   end
 end
