@@ -27,7 +27,7 @@ class ParamAnalyzer
   end
 
   def get_all_users
-
+    puts "Response Code 200 OK\n\n"
     Users::USERS.each do |user|
       puts "First Name: #{user[:first_name]} Last Name: #{user[:last_name]} Age: #{user[:age]} \n"
     end
