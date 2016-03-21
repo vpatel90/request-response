@@ -18,7 +18,7 @@ class TestParamAnalyzer < Minitest::Test
     params = {:resource=>"users", :id=>2, :action=>nil}
     param_analyzer = ParamAnalyzer.new(params)
     param_analyzer.users = TestUsers::USERS
-    expected = ["Response Code 200 OK\n\n", "First Name: Abby Last Name: Hunter Age: 26 \n"]
+    expected = ["200 OK\n\n", "First Name: Abby Last Name: Hunter Age: 26 \n"]
     assert_equal(expected, param_analyzer.get_user_at_id)
   end
 
@@ -26,7 +26,7 @@ class TestParamAnalyzer < Minitest::Test
     params = {:resource=>"users", :id=>9999, :action=>nil}
     param_analyzer = ParamAnalyzer.new(params)
     param_analyzer.users = TestUsers::USERS
-    expected = "404 User not found \n\n"
+    expected = "404 not found \n\n"
     assert_equal(expected, param_analyzer.get_users)
   end
 
@@ -34,7 +34,7 @@ class TestParamAnalyzer < Minitest::Test
     params = {:resource=>"users", :id=>9999, :action=>nil, :first_name=>"s"}
     param_analyzer = ParamAnalyzer.new(params)
     param_analyzer.users = TestUsers::USERS
-    expected = ["Response Code 200 OK\n\n", "First Name: Sally Last Name: Sitwell Age: 46 \n"]
+    expected = ["200 OK\n\n", "First Name: Sally Last Name: Sitwell Age: 46 \n"]
 
     assert_equal(expected, param_analyzer.get_users_with_first_name)
   end
@@ -43,14 +43,14 @@ class TestParamAnalyzer < Minitest::Test
     params = {:resource=>"users", :id=>9999, :action=>nil, :limit=>"15", :offset=>"6"}
     param_analyzer = ParamAnalyzer.new(params)
     param_analyzer.users = TestUsers::USERS
-    assert_equal("404 User not found \n\n", param_analyzer.get_users_at_range)
+    assert_equal("404 not found \n\n", param_analyzer.get_users_at_range)
   end
 
   def test_get_users_at_range_get_first
     params = {:resource=>"users", :id=>9999, :action=>nil, :limit=>"1", :offset=>"1"}
     param_analyzer = ParamAnalyzer.new(params)
     param_analyzer.users = TestUsers::USERS
-    expected = ["Response Code 200 OK\n\n", "First Name: Vivek Last Name: Patel Age: 26 \n"]
+    expected = ["200 OK\n\n", "First Name: Vivek Last Name: Patel Age: 26 \n"]
     assert_equal(expected, param_analyzer.get_users_at_range)
   end
 

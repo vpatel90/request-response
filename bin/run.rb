@@ -1,6 +1,7 @@
 require_relative '../db/setup'
 require_relative '../lib/users.rb'
 require_relative '../lib/param_analyzer'
+require_relative '../lib/param_deleter'
 # Remember to put the requires here for all the classes you write and want to use
 
 def parse_params(uri_fragments, query_param_string)
@@ -60,7 +61,16 @@ loop do
     # return an appropriate response
 
     # YOUR CODE GOES BELOW HERE
-    puts ParamAnalyzer.new(@params).analyze_resource
+    case @request[:method]
+    when "GET"
+      puts ParamAnalyzer.new(@params).analyze_resource
+    when "DELETE"
+      puts ParamDeleter.new(@params).analyze_resource
+    when "POST"
+
+    when "PUT"
+
+    end
     # YOUR CODE GOES ABOVE HERE  ^
   end
 end
