@@ -30,4 +30,13 @@ class TestParamAnalyzer < Minitest::Test
     assert_equal(expected, param_analyzer.get_users)
   end
 
+  def test_users_with_first_name
+    params = {:resource=>"users", :id=>9999, :action=>nil, :first_name=>"s"}
+    param_analyzer = ParamAnalyzer.new(params)
+    param_analyzer.users = TestUsers::USERS
+    expected = ["Response Code 200 OK\n\n", "First Name: Sally Last Name: Sitwell Age: 46 \n"]
+
+    assert_equal(expected, param_analyzer.get_users_with_first_name)
+  end
+
 end

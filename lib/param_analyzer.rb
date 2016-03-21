@@ -47,6 +47,22 @@ class ParamAnalyzer
   end
 
   def analyze_optional_params
-    "its getting here"
+    if @params[:first_name].nil?
+      get_users_at_range
+    else
+      get_users_with_name
+    end
+  end
+
+  def get_users_with_first_name
+    user_names = ["Response Code 200 OK\n\n"]
+    first_names = @users.map { |hash| hash[:first_name] }
+    requested_names = first_names.select {|names| names.match(/#{@params[:first_name].capitalize}/)}
+    @users.each do |user|
+      if requested_names.any? {|name| name == user[:first_name]}
+        user_names << "First Name: #{user[:first_name]} Last Name: #{user[:last_name]} Age: #{user[:age]} \n"
+      end
+    end
+    return user_names
   end
 end

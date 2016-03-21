@@ -19,6 +19,6 @@ module TestUsers
             {first_name:"Oberyn", last_name:"Martel", age: 26},
             {first_name:"Petyr", last_name:"Baelish", age: 33},
             {first_name:"John Luc", last_name:"Picard", age: 54},
-            {first_name:"Sally", last_name:"Sally", age: 46},
+            {first_name:"Sally", last_name:"Sitwell", age: 46},
             ]
 end
