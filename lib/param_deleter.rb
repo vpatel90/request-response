@@ -16,7 +16,8 @@ class ParamDeleter
   end
 
   def delete_index
-    @users.delete(@params[:id].to_i)
+    require 'pry'; binding.pry
+    @users.slice!(@params[:id].to_i - 1)
     "200 OK \n\n"
   end
 
