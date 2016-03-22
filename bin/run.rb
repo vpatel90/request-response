@@ -2,6 +2,8 @@ require_relative '../db/setup'
 require_relative '../lib/users.rb'
 require_relative '../lib/param_analyzer'
 require_relative '../lib/param_deleter'
+require_relative '../lib/param_adder'
+require_relative '../lib/param_modifier'
 # Remember to put the requires here for all the classes you write and want to use
 
 def parse_params(uri_fragments, query_param_string)
@@ -23,7 +25,8 @@ def parse(raw_request)
   pieces = raw_request.split(' ')
   method = pieces[0]
   uri    = pieces[1]
-  http_v = pieces[2]
+  http_v = pieces[-1]
+  post_body = pieces[-2] if pieces.size > 3
   route, query_param_string = uri.split('?')
   uri_fragments = route.split('/')
   protocol = uri_fragments[0][0..-2]
@@ -39,6 +42,7 @@ def parse(raw_request)
     domain_name: domain_name,
     tld: tld,
     full_url: full_url,
+    post_body: post_body,
     params: params
   }
 end
@@ -67,9 +71,9 @@ loop do
     when "DELETE"
       puts ParamDeleter.new(@params).analyze_resource
     when "POST"
-
+      puts ParamAdder.new(@request[:post_body]).parse
     when "PUT"
-
+      puts ParamModifier.new(@request[:post_body],@params[:id]).parse
     end
     # YOUR CODE GOES ABOVE HERE  ^
   end
