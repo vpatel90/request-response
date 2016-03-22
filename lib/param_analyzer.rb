@@ -15,7 +15,7 @@ class ParamAnalyzer
         analyze_optional_params
       end
     else
-      ##other resource
+      "404 not found \n\n"
     end
   end
 

@@ -9,12 +9,17 @@ class ParamAdder
   def parse
     return "400 Bad Request" if @post_body.nil?
     str = @post_body.gsub("'", "")
-    str = "{#{str}}"
-    make_name_hash(str)
+    arr = str.split(",")
+    arr2 = arr.map do |item|
+      item.split(":")
+    end
+    arr2.each {|index| index[0] = index[0].to_sym}
+    make_name_hash(arr2)
   end
 
-  def make_name_hash(str)
-    user = eval(str)
+  def make_name_hash(arr2)
+    user = Hash[arr2]
+
     case
     when user[:first_name].nil?, user[:last_name].nil?, user[:age].nil?
       "400 Bad Request"

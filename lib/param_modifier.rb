@@ -10,12 +10,16 @@ class ParamModifier
   def parse
     return "404 not found" if @id.nil?
     str = @post_body.gsub("'", "")
-    str = "{#{str}}"
-    evaluate(str)
+    arr = str.split(",")
+    arr2 = arr.map do |item|
+      item.split(":")
+    end
+    arr2.each {|index| index[0] = index[0].to_sym}
+    evaluate(arr2)
   end
 
-  def evaluate(str)
-    hash = eval(str)
+  def evaluate(arr2)
+     hash = Hash[arr2]
     user = @users[@id.to_i - 1]
     case
     when hash.has_key?(:age)
