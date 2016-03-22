@@ -1,29 +1,35 @@
-This folder structure should be suitable for starting a project that uses a database:
+### About
 
-* Fork this repo
-* Clone this repo
-* Run `bundle install` to install `active_record`
-* `rake generate:migration <NAME>` to create a migration (Don't include the `<` `>` in your name, it should also start with a capital)
-* `rake db:migrate` to run the migration and update the database
-* Create models in lib that subclass `ActiveRecord::Base`
-* ... ?
-* Profit
+This project parses user requests and performs appropriate tasks
+The program stores a list of first_names, last_names and age
+The program will perform an action based on the HTTP Verbs
 
+* GET - Will display resource
+* POST - Will add resource
+* PUT - Will updata resource
+* DELETE - Will delete resource
 
-## Rundown
+### Examples
 
 ```
-.
-├── Gemfile             # Details which gems are required by the project
-├── README.md           # This file
-├── Rakefile            # Defines `rake generate:migration` and `db:migrate`
-├── config
-│   └── database.yml    # Defines the database config (e.g. name of file)
-├── console.rb          # `ruby console.rb` starts `pry` with models loaded
-├── db
-│   ├── dev.sqlite3     # Default location of the database file
-│   ├── migrate         # Folder containing generated migrations
-│   └── setup.rb        # `require`ing this file sets up the db connection
-└── lib                 # Your ruby code (models, etc.) should go here
-    └── all.rb          # Require this file to auto-require _all_ `.rb` files in `lib`
+##Displays all users
+GET http://localhost:3000/users HTTP/1.1
+
+##Displays user with that ID
+GET http://localhost:3000/users/1 HTTP/1.1
+
+##Displays user with that name
+GET http://localhost:3000/users?first_name=s
+
+##Displays users within ID range
+GET http://localhost:3000/users?limit=10&offset=10
+
+##Deletes User
+DELETE http://localhost:3000/users/1
+
+##Adds User to resource
+POST http://localhost:3000/users 'first_name:"Justin",last_name:"Herrick",age:"99"' HTTP/1.1
+
+##Updates user at ID
+PUT http://localhost:3000/users/1 'age:"9999999"' HTTP/1.1 
 ```

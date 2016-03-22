@@ -74,6 +74,8 @@ loop do
       puts ParamAdder.new(@request[:post_body]).parse
     when "PUT"
       puts ParamModifier.new(@request[:post_body],@params[:id]).parse
+    else
+      puts "405 Method Not Allowed"
     end
     # YOUR CODE GOES ABOVE HERE  ^
   end
